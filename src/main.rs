@@ -2,10 +2,11 @@
 // need dioxus
 use dioxus::prelude::*;
 
-use components::Hero;
+use panels::app::Run;
 
 /// Define a components module that contains all shared components for our app.
 mod components;
+mod panels;
 
 // We can import assets in dioxus with the `asset!` macro. This macro takes a path to an asset relative to the crate root.
 // The macro returns an `Asset` type that will display as the path to the asset in the browser or a local path in desktop bundles.
@@ -36,7 +37,7 @@ fn App() -> Element {
         document::Link { rel: "stylesheet", href: TAILWIND_CSS }
         document::Link { rel: "stylesheet", href: DX_THEME_CSS }
 
-        Hero {}
+        Run {}
 
     }
 }
