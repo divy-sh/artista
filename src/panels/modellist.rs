@@ -9,7 +9,7 @@ use diffusion_rs::preset::{
 };
 use dioxus::prelude::*;
 
-use crate::components::label::Label;
+use crate::components::{label::Label, modelcard::modelcard::ModelCard};
 
 fn model_list() -> HashMap<String, String> {
     let mut models = HashMap::new();
@@ -72,14 +72,14 @@ pub fn ModelList() -> Element {
     let models = model_list();
     let model_items = models.iter().map(|(key, value)| {
         rsx! {
-            li { key: "{key}", "{value}" }
+            ModelCard { model_name: key.clone() }
         }
     });
 
     rsx! {
-        div { class: "flex flex-col gap-2 p-4",
+        div { style: "flex-direction: row; gap: 0.5rem;",
             Label { html_for: "model list", "Available Models" }
-            ul { class: "list-disc pl-6", {model_items} }
+            {model_items}
         }
     }
 }
