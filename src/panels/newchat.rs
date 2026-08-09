@@ -1,9 +1,8 @@
 use dioxus::prelude::*;
 
 use crate::components::button::Button;
-use crate::components::textarea::Textarea;
 use crate::components::input::Input;
-use crate::components::card::{Card, CardContent};
+use crate::components::textarea::Textarea;
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct ImageData {
@@ -12,9 +11,7 @@ pub struct ImageData {
 }
 
 #[component]
-pub fn NewChat(
-    on_submit: Option<EventHandler<(String, Option<ImageData>)>>,
-) -> Element {
+pub fn NewChat(on_submit: Option<EventHandler<(String, Option<ImageData>)>>) -> Element {
     let mut text_input = use_signal(String::new);
     let mut attached_image = use_signal(|| None::<ImageData>);
 

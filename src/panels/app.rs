@@ -1,8 +1,12 @@
-use diffusion_rs::{api::gen_img, preset::{Preset, PresetBuilder}};
+use diffusion_rs::{
+    api::gen_img,
+    preset::{Preset, PresetBuilder},
+};
 use dioxus::prelude::*;
 
 use crate::{
-    components::{tabs::{TabContent, TabList, TabTrigger, Tabs}}, panels::{modellist::ModelList, newchat::NewChat}
+    components::tabs::{TabContent, TabList, TabTrigger, Tabs},
+    panels::{modellist::ModelList, newchat::NewChat},
 };
 
 #[component]
@@ -42,10 +46,10 @@ pub fn Run() -> Element {
     }
 }
 
-fn generate() {
+fn generate(prompt: String) {
     let (config, mut model_config) = PresetBuilder::default()
         .preset(Preset::SegmindVega)
-        .prompt("a lovely duck drinking water from a bottle")
+        .prompt(prompt)
         .build()
         .unwrap();
     gen_img(&config, &mut model_config).unwrap();
