@@ -46,7 +46,7 @@ pub fn Run() -> Element {
     }
 }
 
-fn generate(prompt: String) {
+pub fn generate(prompt: String) {
     let (config, mut model_config) = PresetBuilder::default()
         .preset(Preset::SegmindVega)
         .prompt(prompt)
