@@ -1,6 +1,11 @@
 use dioxus::prelude::*;
 
-use crate::components::{button::{Button, ButtonVariant}, card::{Card, CardAction, CardDescription, CardHeader, CardTitle, CardContent, CardFooter}, input::Input, label::Label};
+use crate::components::{
+    button::{Button, ButtonVariant},
+    card::{Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle},
+    input::Input,
+    label::Label,
+};
 
 #[component]
 pub fn ModelCard(model_name: String) -> Element {

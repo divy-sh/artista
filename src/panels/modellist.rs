@@ -1,19 +1,18 @@
-use std::collections::HashMap;
 use diffusion_rs::preset::{
-    Preset, Flux1Weight, Flux1MiniWeight, ChromaWeight, NitroSDRealismWeight,
-    NitroSDVibrantWeight, DiffInstructStarWeight, ChromaRadianceWeight, SSD1BWeight,
-    Flux2Weight, ZImageTurboWeight, QwenImageWeight, OvisImageWeight,
-    TwinFlowZImageTurboExpWeight, SDXS512DreamShaperWeight, Flux2Klein4BWeight,
-    Flux2KleinBase4BWeight, Flux2Klein9BWeight, Flux2KleinBase9BWeight,
-    AnimaWeight, Anima2Weight, ErnieImageWeight, LongCatImageWeight,
+    Anima2Weight, AnimaWeight, ChromaRadianceWeight, ChromaWeight, DiffInstructStarWeight,
+    ErnieImageWeight, Flux1MiniWeight, Flux1Weight, Flux2Klein4BWeight, Flux2Klein9BWeight,
+    Flux2KleinBase4BWeight, Flux2KleinBase9BWeight, Flux2Weight, LongCatImageWeight,
+    NitroSDRealismWeight, NitroSDVibrantWeight, OvisImageWeight, Preset, QwenImageWeight,
+    SDXS512DreamShaperWeight, SSD1BWeight, TwinFlowZImageTurboExpWeight, ZImageTurboWeight,
 };
 use dioxus::prelude::*;
+use std::collections::HashMap;
 
 use crate::components::{label::Label, modelcard::modelcard::ModelCard};
 
 fn model_list() -> HashMap<String, String> {
     let mut models = HashMap::new();
-    
+
     // List all variants matching your Preset definition with default weights
     let all_presets = vec![
         Preset::StableDiffusion1_4,
@@ -63,7 +62,7 @@ fn model_list() -> HashMap<String, String> {
         let name = format!("{:?}", model);
         models.insert(name.clone(), name);
     }
-    
+
     models
 }
 

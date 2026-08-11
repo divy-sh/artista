@@ -1,7 +1,3 @@
-use diffusion_rs::{
-    api::gen_img,
-    preset::{Preset, PresetBuilder},
-};
 use dioxus::prelude::*;
 
 use crate::{
@@ -44,13 +40,4 @@ pub fn Run() -> Element {
             }
         }
     }
-}
-
-pub fn generate(prompt: String) {
-    let (config, mut model_config) = PresetBuilder::default()
-        .preset(Preset::SegmindVega)
-        .prompt(prompt)
-        .build()
-        .unwrap();
-    gen_img(&config, &mut model_config).unwrap();
 }
