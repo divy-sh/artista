@@ -1,16 +1,15 @@
 use diffusion_rs::preset::{
-    Anima2Weight, AnimaWeight, ChromaRadianceWeight, ChromaWeight, DiffInstructStarWeight,
-    ErnieImageWeight, Flux1MiniWeight, Flux1Weight, Flux2Klein4BWeight, Flux2Klein9BWeight,
-    Flux2KleinBase4BWeight, Flux2KleinBase9BWeight, Flux2Weight, LongCatImageWeight,
-    NitroSDRealismWeight, NitroSDVibrantWeight, OvisImageWeight, Preset, QwenImageWeight,
-    SDXS512DreamShaperWeight, SSD1BWeight, TwinFlowZImageTurboExpWeight, ZImageTurboWeight,
+    Anima2Weight, AnimaWeight, ChromaRadianceWeight, DiffInstructStarWeight,
+    ErnieImageWeight, Flux1MiniWeight,
+    NitroSDRealismWeight, NitroSDVibrantWeight, Preset, QwenImageWeight,
+    SDXS512DreamShaperWeight, SSD1BWeight,
 };
 use dioxus::prelude::*;
 use std::collections::HashMap;
 
 use crate::components::{label::Label, modelcard::modelcard::ModelCard};
 
-fn model_list() -> HashMap<String, String> {
+pub fn model_list() -> HashMap<String, String> {
     let mut models = HashMap::new();
 
     // List all variants matching your Preset definition with default weights
@@ -18,34 +17,18 @@ fn model_list() -> HashMap<String, String> {
         Preset::StableDiffusion1_4,
         Preset::StableDiffusion1_5,
         Preset::StableDiffusion2_1,
-        Preset::StableDiffusion3Medium,
-        Preset::StableDiffusion3_5Medium,
-        Preset::StableDiffusion3_5Large,
-        Preset::StableDiffusion3_5LargeTurbo,
         Preset::SDXLBase1_0,
         Preset::SDTurbo,
         Preset::SDXLTurbo1_0,
-        Preset::Flux1Dev(Flux1Weight::default()),
-        Preset::Flux1Schnell(Flux1Weight::default()),
         Preset::Flux1Mini(Flux1MiniWeight::default()),
-        Preset::JuggernautXL11,
-        Preset::Chroma(ChromaWeight::default()),
         Preset::NitroSDRealism(NitroSDRealismWeight::default()),
         Preset::NitroSDVibrant(NitroSDVibrantWeight::default()),
         Preset::DiffInstructStar(DiffInstructStarWeight::default()),
         Preset::ChromaRadiance(ChromaRadianceWeight::default()),
         Preset::SSD1B(SSD1BWeight::default()),
-        Preset::Flux2Dev(Flux2Weight::default()),
-        Preset::ZImageTurbo(ZImageTurboWeight::default()),
         Preset::QwenImage(QwenImageWeight::default()),
-        Preset::OvisImage(OvisImageWeight::default()),
         Preset::DreamShaperXL2_1Turbo,
-        Preset::TwinFlowZImageTurboExp(TwinFlowZImageTurboExpWeight::default()),
         Preset::SDXS512DreamShaper(SDXS512DreamShaperWeight::default()),
-        Preset::Flux2Klein4B(Flux2Klein4BWeight::default()),
-        Preset::Flux2KleinBase4B(Flux2KleinBase4BWeight::default()),
-        Preset::Flux2Klein9B(Flux2Klein9BWeight::default()),
-        Preset::Flux2KleinBase9B(Flux2KleinBase9BWeight::default()),
         Preset::SegmindVega,
         Preset::Anima(AnimaWeight::default()),
         Preset::Anima2(Anima2Weight::default()),
@@ -53,9 +36,6 @@ fn model_list() -> HashMap<String, String> {
         Preset::ErnieImageTurbo(ErnieImageWeight::default()),
         Preset::HiDreamO1ImageDev,
         Preset::HiDreamO1Image,
-        Preset::LongCatImage(LongCatImageWeight::default()),
-        Preset::Lens,
-        Preset::LensTurbo,
     ];
 
     for model in all_presets {

@@ -10,3 +10,4 @@ pub mod modelcard;
 pub mod popover;
 pub mod tabs;
 pub mod textarea;
+pub mod select;
