@@ -7,7 +7,7 @@ use diffusion_rs::preset::{
 use dioxus::prelude::*;
 use std::collections::HashMap;
 
-use crate::components::{label::Label, modelcard::modelcard::ModelCard};
+use crate::components::{modelcard::modelcard::ModelCard};
 
 pub fn model_list() -> HashMap<String, String> {
     let mut models = HashMap::new();
@@ -57,7 +57,7 @@ pub fn ModelList() -> Element {
 
     rsx! {
         div { style: "flex-direction: row; gap: 0.5rem;",
-            Label { html_for: "model list", "Available Models" }
+            label { "Available Models" }
             {model_items}
         }
     }

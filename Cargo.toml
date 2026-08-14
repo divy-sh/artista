@@ -11,6 +11,7 @@ dioxus = { version = "0.7.1", features = [] }
 dioxus-primitives = { git = "https://github.com/DioxusLabs/components", version = "0.0.1", default-features = false }
 diffusion-rs = "0.1.18"
 dioxus-icons = { version = "0.1.0", default-features = false }
+daisy_rsx = "0.1.57"
 
 [features]
 default = ["mobile"]

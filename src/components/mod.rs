@@ -2,12 +2,4 @@
 //! They can be used to defined common UI elements like buttons, forms, and modals. In this template, we define a Hero
 //! component  to be used in our app.
 
-pub mod button;
-pub mod card;
-pub mod input;
-pub mod label;
 pub mod modelcard;
-pub mod popover;
-pub mod tabs;
-pub mod textarea;
-pub mod select;
