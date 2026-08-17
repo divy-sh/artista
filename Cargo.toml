@@ -12,6 +12,13 @@ dioxus-primitives = { git = "https://github.com/DioxusLabs/components", version 
 diffusion-rs = "0.1.18"
 dioxus-icons = { version = "0.1.0", default-features = false }
 daisy_rsx = "0.1.57"
+tw_merge = "0.1.21"
+rusqlite = { version = "0.38.0", features = ["bundled"] }
+r2d2 = "0.8.10"
+r2d2_sqlite = "0.32.0"
+uuid = { version = "1.16.0", features = ["v4"] }
+encoding_rs = "0.8.35"
+lucide-dioxus = { version = "3.31.0", features = ["all-icons"] }
 
 [features]
 default = ["mobile"]

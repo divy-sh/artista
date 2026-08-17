@@ -51,3 +51,6 @@ To run for a different platform, use the `--platform platform` flag. E.g.
 dx serve --platform desktop
 ```
 
+# TODO
+- replace encoder.rs with a better implementation
+-

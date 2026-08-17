@@ -1,13 +1,10 @@
 use diffusion_rs::preset::{
-    Anima2Weight, AnimaWeight, ChromaRadianceWeight, DiffInstructStarWeight,
-    ErnieImageWeight, Flux1MiniWeight,
-    NitroSDRealismWeight, NitroSDVibrantWeight, Preset, QwenImageWeight,
+    Anima2Weight, AnimaWeight, ChromaRadianceWeight, DiffInstructStarWeight, ErnieImageWeight,
+    Flux1MiniWeight, NitroSDRealismWeight, NitroSDVibrantWeight, Preset, QwenImageWeight,
     SDXS512DreamShaperWeight, SSD1BWeight,
 };
-use dioxus::prelude::*;
-use std::collections::HashMap;
 
-use crate::components::{modelcard::modelcard::ModelCard};
+use std::collections::HashMap;
 
 pub fn model_list() -> HashMap<String, String> {
     let mut models = HashMap::new();
@@ -44,21 +41,4 @@ pub fn model_list() -> HashMap<String, String> {
     }
 
     models
-}
-
-#[component]
-pub fn ModelList() -> Element {
-    let models = model_list();
-    let model_items = models.iter().map(|(key, value)| {
-        rsx! {
-            ModelCard { model_name: key.clone() }
-        }
-    });
-
-    rsx! {
-        div { style: "flex-direction: row; gap: 0.5rem;",
-            label { "Available Models" }
-            {model_items}
-        }
-    }
 }
