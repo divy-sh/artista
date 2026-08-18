@@ -53,4 +53,5 @@ dx serve --platform desktop
 
 # TODO
 - replace encoder.rs with a better implementation
--
+- implement conversation history
+- show download status when the user selects a model for the first time
