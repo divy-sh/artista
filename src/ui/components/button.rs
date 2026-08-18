@@ -1,8 +1,6 @@
 use dioxus::prelude::*;
 use tw_merge::tw_merge;
 
-use crate::ui::components::input::InputType::Url;
-
 #[derive(Default, Clone, PartialEq)]
 pub enum ButtonVariant {
     #[default]

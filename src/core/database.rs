@@ -15,14 +15,11 @@ static DB_INSTANCE: OnceLock<Database> = OnceLock::new();
 impl Database {
     pub fn get_db() -> &'static Database {
         DB_INSTANCE.get_or_init(|| {
-            let manager = SqliteConnectionManager::file("");
+            let manager = SqliteConnectionManager::file("db.sqlite3");
             let pool = r2d2::Pool::new(manager).expect("Failed to create pool");
             let db = Database { pool };
 
             _ = db.init_conversation_dao();
-            _ = db.init_settings_dao();
-            _ = db.init_model_config_dao();
-            _ = db.init_user_model_dao();
 
             db
         })
@@ -34,44 +31,8 @@ impl Database {
             "CREATE TABLE IF NOT EXISTS conversations (
                 id TEXT PRIMARY KEY,
                 title TEXT NOT NULL,
-                body TEXT NOT NULL,
+                image BLOB NOT NULL,
                 lastUpdated TEXT NOT NULL
-            )",
-            [],
-        )?;
-        Ok(())
-    }
-
-    pub fn init_settings_dao(&self) -> Result<()> {
-        let conn = self.pool.get().expect("Failed to get connection from pool");
-        conn.execute(
-            "CREATE TABLE IF NOT EXISTS settings (
-                key TEXT PRIMARY KEY,
-                value TEXT NOT NULL
-            )",
-            [],
-        )?;
-        Ok(())
-    }
-
-    pub fn init_model_config_dao(&self) -> Result<()> {
-        let conn = self.pool.get().expect("Failed to get connection from pool");
-        conn.execute(
-            "CREATE TABLE IF NOT EXISTS model_config (
-                key TEXT PRIMARY KEY,
-                value TEXT NOT NULL
-            )",
-            [],
-        )?;
-        Ok(())
-    }
-
-    pub fn init_user_model_dao(&self) -> Result<()> {
-        let conn = self.pool.get().expect("Failed to get connection from pool");
-        conn.execute(
-            "CREATE TABLE IF NOT EXISTS user_model (
-                name TEXT PRIMARY KEY,
-                path TEXT NOT NULL
             )",
             [],
         )?;
