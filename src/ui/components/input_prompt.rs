@@ -86,12 +86,22 @@ pub fn InputPromptFooter(
 pub fn InputPromptSubmit(
     #[props(optional)] disabled: bool,
     #[props(into, optional)] class: Option<String>,
+    #[props(optional)] onclick: Option<EventHandler<MouseEvent>>,
     children: Element,
 ) -> Element {
     let merged = tw_merge!("size-8 rounded-full", class.as_deref().unwrap_or(""));
 
     rsx! {
-        Button { size: ButtonSize::Icon, class: merged, button_type: "button", disabled: disabled,
+        Button {
+            size: ButtonSize::Icon,
+            class: merged,
+            button_type: "button",
+            disabled: disabled,
+            onclick: move |evt| {
+                if let Some(handler) = &onclick {
+                    handler.call(evt);
+                }
+            },
             {children}
         }
     }

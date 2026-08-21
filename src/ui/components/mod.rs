@@ -1,3 +1,4 @@
+pub mod bottom_nav;
 pub mod button;
 pub mod combobox;
 pub mod image;

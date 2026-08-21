@@ -2,7 +2,7 @@ use dioxus::document::eval;
 use dioxus::prelude::*;
 
 use ui::components::button::Button;
-use ui::panels::home::DemoInputPrompt;
+use ui::panels::home::Home;
 
 use crate::core::database::Database;
 
@@ -27,8 +27,6 @@ fn App() -> Element {
     use_effect(move || {
         let dark_class = if is_dark() { "dark" } else { "" };
         let js = format!("document.documentElement.className = '{}';", dark_class);
-
-        // Executes JavaScript in the Web/Desktop runtime
         eval(&js);
     });
 
@@ -36,13 +34,12 @@ fn App() -> Element {
         document::Link { rel: "icon", href: FAVICON }
         document::Link { rel: "stylesheet", href: TAILWIND_CSS }
 
-        // Optional theme toggle button
         Button {
             class: "fixed bottom-4 right-4 z-50 p-2 text-xs font-medium rounded-full border border-border bg-card text-card-foreground shadow-md cursor-pointer hover:bg-muted",
             onclick: move |_| is_dark.toggle(),
             if is_dark() { "☀️ Light" } else { "🌙 Dark" },
         }
 
-        DemoInputPrompt {}
+        Home {}
     }
 }
