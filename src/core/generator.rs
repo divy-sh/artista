@@ -1,4 +1,4 @@
-use crate::core::image::ImageData;
+use crate::core::models::image::ImageData;
 use diffusion_rs::{
     api::Progress,
     preset::{

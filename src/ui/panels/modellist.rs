@@ -1,4 +1,4 @@
-use crate::core::models::model_list;
+use crate::core::controller::model_list;
 use dioxus::prelude::*;
 
 #[component]

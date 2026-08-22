@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 use lucide_dioxus::{ArrowUp, ChevronsUpDown, Search};
 
-use crate::core::models::model_list;
+use crate::core::controller::model_list;
 use crate::ui::components::combobox::{
     Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList,
 };

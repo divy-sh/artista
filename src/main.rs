@@ -1,5 +1,6 @@
 use dioxus::document::eval;
 use dioxus::prelude::*;
+use lucide_dioxus::{Moon, Sun};
 
 use ui::components::button::Button;
 use ui::panels::home::Home;
@@ -37,9 +38,8 @@ fn App() -> Element {
         Button {
             class: "fixed bottom-4 right-4 z-50 p-2 text-xs font-medium rounded-full border border-border bg-card text-card-foreground shadow-md cursor-pointer hover:bg-muted",
             onclick: move |_| is_dark.toggle(),
-            if is_dark() { "☀️ Light" } else { "🌙 Dark" },
+            if is_dark() { Sun {} "Light" } else { Moon {} "Dark" },
         }
-
         Home {}
     }
 }

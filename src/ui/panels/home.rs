@@ -1,10 +1,8 @@
 use dioxus::prelude::*;
 use std::sync::mpsc;
 
-use crate::core::encoder::base64_encode;
-use crate::core::generator::generate;
-use crate::core::image::ImageData;
-use crate::core::models::model_list;
+use crate::core::controller::{base64_encode, generate, model_list};
+use crate::core::models::image::ImageData;
 
 use crate::ui::panels::input::InputPanel;
 use crate::ui::panels::output::OutputPanel;
@@ -23,7 +21,7 @@ pub fn Home() -> Element {
         .cloned()
         .or_else(|| models.keys().next().cloned());
 
-    let mut selected_model_key = use_signal(move || default_model_key);
+    let selected_model_key = use_signal(move || default_model_key);
 
     let handle_submit = move |_| {
         let text = input_value.peek().trim().to_string();

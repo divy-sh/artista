@@ -42,4 +42,20 @@ impl Database {
     pub fn get_conn(&self) -> r2d2::PooledConnection<SqliteConnectionManager> {
         self.pool.get().expect("Database pool exhausted")
     }
+
+    pub fn upsert_conversation(&self, id: String, title: String, image: Vec<u8>) -> Result<()> {
+        let conn = self.get_conn();
+
+        conn.execute(
+            "INSERT INTO conversations (id, title, image, lastUpdated)
+                 VALUES (?1, ?2, ?3, ?4)
+                 ON CONFLICT(id) DO UPDATE SET
+                    title = excluded.title,
+                    image = excluded.image,
+                    lastUpdated = DATETIME('now')",
+            rusqlite::params![id, title, image],
+        )?;
+
+        Ok(())
+    }
 }

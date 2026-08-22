@@ -1,6 +1,7 @@
-pub mod constants;
+mod ai_models;
+mod constants;
+pub mod controller;
 pub mod database;
-pub mod encoder;
-pub mod generator;
-pub mod image;
+mod encoder;
+mod generator;
 pub mod models;
