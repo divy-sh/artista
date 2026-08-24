@@ -13,12 +13,9 @@ mod ui;
 const FAVICON: Asset = asset!("/assets/favicon.ico");
 const TAILWIND_CSS: Asset = asset!("/assets/tailwind.css");
 
-static DATABASE_INSTANCE: GlobalSignal<&Database> =
-    Signal::global(|| core::database::Database::get_db());
-
 fn main() {
     dioxus::launch(App);
-    _ = DATABASE_INSTANCE.read().init_conversation_dao();
+    Database::get_db();
 }
 
 #[component]

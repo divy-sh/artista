@@ -3,6 +3,8 @@ use std::sync::OnceLock;
 use r2d2_sqlite::SqliteConnectionManager;
 use rusqlite::Result;
 
+use crate::core::models::image::ImageData;
+
 type Pool = r2d2::Pool<SqliteConnectionManager>;
 
 #[derive(Debug)]
@@ -30,9 +32,9 @@ impl Database {
         conn.execute(
             "CREATE TABLE IF NOT EXISTS conversations (
                 id TEXT PRIMARY KEY,
-                title TEXT NOT NULL,
-                image BLOB NOT NULL,
-                lastUpdated TEXT NOT NULL
+                name TEXT NOT NULL,
+                bytes BLOB NOT NULL,
+                last_updated TEXT NOT NULL
             )",
             [],
         )?;
@@ -50,12 +52,29 @@ impl Database {
             "INSERT INTO conversations (id, title, image, lastUpdated)
                  VALUES (?1, ?2, ?3, ?4)
                  ON CONFLICT(id) DO UPDATE SET
-                    title = excluded.title,
-                    image = excluded.image,
-                    lastUpdated = DATETIME('now')",
+                    name = excluded.name,
+                    bytes = excluded.bytes,
+                    last_updated = DATETIME('now')",
             rusqlite::params![id, title, image],
         )?;
 
         Ok(())
+    }
+
+    pub fn get_conversations(&self) -> Result<(Vec<ImageData>)> {
+        let conn = self.get_conn();
+
+        let mut stmt = conn.prepare("SELECT * FROM conversations")?;
+        let mut rows = stmt.query([])?;
+        let mut result = vec![];
+        while let Some(row) = rows.next()? {
+            result.push(ImageData {
+                id: row.get(0).unwrap(),
+                name: row.get(1).unwrap(),
+                bytes: row.get(2).unwrap(),
+                last_updated: row.get(3).unwrap(),
+            });
+        }
+        Ok(result)
     }
 }

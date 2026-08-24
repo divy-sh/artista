@@ -1,4 +1,4 @@
-use crate::core::models::image::ImageData;
+use crate::core::{database::Database, models::image::ImageData};
 use diffusion_rs::{
     api::Progress,
     preset::{
@@ -10,6 +10,7 @@ use diffusion_rs::{
 use std::path::PathBuf;
 use std::sync::mpsc::Receiver;
 use std::sync::mpsc::Sender;
+use uuid::Uuid;
 
 use diffusion_rs::{api::gen_img_with_progress, preset::PresetBuilder};
 
@@ -50,6 +51,11 @@ pub fn generate(
                 }
 
                 if let Some(bytes) = loaded_bytes {
+                    _ = Database::get_db().upsert_conversation(
+                        Uuid::new_v4().to_string(),
+                        text,
+                        bytes.clone(),
+                    );
                     let _ = result_tx.send(Ok(bytes));
                 } else {
                     let _ = result_tx.send(Err("Generated image output file not found.".into()));
