@@ -72,7 +72,6 @@ pub fn Home() -> Element {
     };
 
     rsx! {
-        div { class: "min-h-screen w-full flex flex-col justify-center items-center p-4",
             div { class: "w-full max-w-lg space-y-4 flex flex-col items-center",
                 if is_generating() || generated_image().is_some() {
                     OutputPanel {
@@ -89,6 +88,5 @@ pub fn Home() -> Element {
                     }
                 }
             }
-        }
     }
 }

@@ -4,7 +4,7 @@ use tw_merge::tw_merge;
 #[component]
 pub fn BottomNav(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
     let c = tw_merge!(
-        "z-50 mx-auto w-full max-w-lg border-t border-border bg-background pb-[env(safe-area-inset-bottom,0px)]",
+        "fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-lg rounded-full border border-border bg-background/95 backdrop-blur shadow-lg px-2 py-1",
         class.as_deref().unwrap_or("")
     );
     rsx! { nav { "data-name": "BottomNav", class: "{c}", {children} } }
@@ -13,7 +13,7 @@ pub fn BottomNav(#[props(into, optional)] class: Option<String>, children: Eleme
 #[component]
 pub fn BottomNavGrid(#[props(into, optional)] class: Option<String>, children: Element) -> Element {
     let c = tw_merge!(
-        "grid grid-flow-col auto-cols-fr h-[var(--bottom__nav__height)] font-medium",
+        "grid grid-flow-col auto-cols-fr h-14 font-medium items-center",
         class.as_deref().unwrap_or("")
     );
     rsx! { div { "data-name": "BottomNavGrid", class: "{c}", {children} } }
@@ -25,7 +25,7 @@ pub fn BottomNavLabel(
     children: Element,
 ) -> Element {
     let c = tw_merge!(
-        "text-sm text-muted-foreground group-hover:text-primary group-aria-[current=page]:text-primary",
+        "text-xs text-muted-foreground group-hover:text-primary group-aria-[current=page]:text-primary",
         class.as_deref().unwrap_or("")
     );
     rsx! { span { "data-name": "BottomNavLabel", class: "{c}", {children} } }
@@ -39,9 +39,8 @@ pub fn BottomNavButton(
     children: Element,
 ) -> Element {
     let c = tw_merge!(
-        "inline-flex flex-col justify-center items-center px-5 group [&_svg]:mb-2 [&_svg]:text-muted-foreground hover:[&_svg]:text-primary aria-[current=page]:[&_svg]:text-primary active:scale-[0.98]",
-        "touch-manipulation [-webkit-tap-highlight-color:transparent] select-none [-webkit-touch-callout:none]",
-        "supports-[-webkit-touch-callout:none]:justify-end supports-[-webkit-touch-callout:none]:pb-0 supports-[-webkit-touch-callout:none]:translate-y-1",
+        "inline-flex flex-col justify-center items-center py-1.5 px-3 rounded-full group [&_svg]:mb-1 [&_svg]:text-muted-foreground hover:[&_svg]:text-primary aria-[current=page]:[&_svg]:text-primary active:scale-[0.95] transition-all",
+        "touch-manipulation [-webkit-tap-highlight-color:transparent] select-none",
         class.as_deref().unwrap_or("")
     );
     rsx! {

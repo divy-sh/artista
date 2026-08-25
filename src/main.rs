@@ -3,7 +3,7 @@ use dioxus::prelude::*;
 use lucide_dioxus::{Moon, Sun};
 
 use ui::components::button::Button;
-use ui::panels::home::Home;
+use ui::panels::app::App;
 
 use crate::core::database::Database;
 
@@ -14,12 +14,12 @@ const FAVICON: Asset = asset!("/assets/favicon.ico");
 const TAILWIND_CSS: Asset = asset!("/assets/tailwind.css");
 
 fn main() {
-    dioxus::launch(App);
+    dioxus::launch(Main);
     Database::get_db();
 }
 
 #[component]
-fn App() -> Element {
+fn Main() -> Element {
     let mut is_dark = use_signal(|| true);
 
     use_effect(move || {
@@ -37,6 +37,6 @@ fn App() -> Element {
             onclick: move |_| is_dark.toggle(),
             if is_dark() { Sun {} "Light" } else { Moon {} "Dark" },
         }
-        Home {}
+        App {}
     }
 }
