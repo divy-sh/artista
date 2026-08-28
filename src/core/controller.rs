@@ -1,10 +1,12 @@
 use crate::core::ai_models;
+use crate::core::database;
 use crate::core::encoder;
 use crate::core::generator;
 
 use crate::core::models::image::ImageData;
 use diffusion_rs::api::Progress;
 use std::collections::HashMap;
+use std::string;
 use std::sync::mpsc::Receiver;
 use std::sync::mpsc::Sender;
 
@@ -34,4 +36,8 @@ pub fn base64_encode(data: &[u8]) -> String {
 
 pub fn model_list() -> HashMap<String, String> {
     ai_models::model_list()
+}
+
+pub fn get_history() -> Result<(Vec<ImageData>)> {
+    database::Database::get_db().get_conversations()
 }

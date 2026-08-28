@@ -1,7 +1,6 @@
 use std::sync::OnceLock;
 
 use r2d2_sqlite::SqliteConnectionManager;
-use rusqlite::Result;
 
 use crate::core::models::image::ImageData;
 
@@ -27,7 +26,7 @@ impl Database {
         })
     }
 
-    pub fn init_conversation_dao(&self) -> Result<()> {
+    pub fn init_conversation_dao(&self) -> Result<(), String> {
         let conn = self.pool.get().expect("Failed to get connection from pool");
         conn.execute(
             "CREATE TABLE IF NOT EXISTS conversations (
@@ -37,7 +36,8 @@ impl Database {
                 last_updated TEXT NOT NULL
             )",
             [],
-        )?;
+        )
+        .expect("Can not create the database table `conversations`");
         Ok(())
     }
 
@@ -45,7 +45,12 @@ impl Database {
         self.pool.get().expect("Database pool exhausted")
     }
 
-    pub fn upsert_conversation(&self, id: String, title: String, image: Vec<u8>) -> Result<()> {
+    pub fn upsert_conversation(
+        &self,
+        id: String,
+        title: String,
+        image: Vec<u8>,
+    ) -> Result<(), String> {
         let conn = self.get_conn();
 
         conn.execute(
@@ -56,12 +61,13 @@ impl Database {
                     bytes = excluded.bytes,
                     last_updated = DATETIME('now')",
             rusqlite::params![id, title, image],
-        )?;
+        )
+        .expect("Can not insert into the database table `conversations`");
 
         Ok(())
     }
 
-    pub fn get_conversations(&self) -> Result<(Vec<ImageData>)> {
+    pub fn get_conversations(&self) -> Result<Vec<ImageData>, String> {
         let conn = self.get_conn();
 
         let mut stmt = conn.prepare("SELECT * FROM conversations")?;
