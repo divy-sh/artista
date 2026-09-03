@@ -31,7 +31,7 @@ impl Database {
         conn.execute(
             "CREATE TABLE IF NOT EXISTS conversations (
                 id TEXT PRIMARY KEY,
-                name TEXT NOT NULL,
+                title TEXT NOT NULL,
                 bytes BLOB NOT NULL,
                 last_updated TEXT NOT NULL
             )",
@@ -54,15 +54,15 @@ impl Database {
         let conn = self.get_conn();
 
         conn.execute(
-            "INSERT INTO conversations (id, title, image, lastUpdated)
-                 VALUES (?1, ?2, ?3, ?4)
+            "INSERT INTO conversations (id, title, bytes, last_updated)
+                 VALUES (?1, ?2, ?3, DATETIME('now'))
                  ON CONFLICT(id) DO UPDATE SET
-                    name = excluded.name,
+                    title = excluded.title,
                     bytes = excluded.bytes,
                     last_updated = DATETIME('now')",
             rusqlite::params![id, title, image],
         )
-        .expect("Can not insert into the database table `conversations`");
+        .map_err(|e| e.to_string())?;
 
         Ok(())
     }
@@ -70,10 +70,12 @@ impl Database {
     pub fn get_conversations(&self) -> Result<Vec<ImageData>, String> {
         let conn = self.get_conn();
 
-        let mut stmt = conn.prepare("SELECT * FROM conversations")?;
-        let mut rows = stmt.query([])?;
+        let mut stmt = conn
+            .prepare("SELECT * FROM conversations")
+            .expect("error in fetching conversations");
+        let mut rows = stmt.query([]).expect("error in fetching conversations");
         let mut result = vec![];
-        while let Some(row) = rows.next()? {
+        while let Some(row) = rows.next().expect("error in fetching conversations") {
             result.push(ImageData {
                 id: row.get(0).unwrap(),
                 name: row.get(1).unwrap(),

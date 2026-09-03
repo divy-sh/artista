@@ -6,7 +6,6 @@ use crate::core::generator;
 use crate::core::models::image::ImageData;
 use diffusion_rs::api::Progress;
 use std::collections::HashMap;
-use std::string;
 use std::sync::mpsc::Receiver;
 use std::sync::mpsc::Sender;
 
@@ -38,6 +37,6 @@ pub fn model_list() -> HashMap<String, String> {
     ai_models::model_list()
 }
 
-pub fn get_history() -> Result<(Vec<ImageData>)> {
+pub fn get_history() -> Result<Vec<ImageData>, String> {
     database::Database::get_db().get_conversations()
 }
